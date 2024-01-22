@@ -152,26 +152,45 @@ class _UploadPageState extends State<UploadPage> {
                           ),
                         IconButton(
                             onPressed: () {
-                              showBottomSheet(
+                              showModalBottomSheet(
+                                backgroundColor: Color.fromARGB(255, 122, 122, 122),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(30),
+                                  
+                                  ),
+
                                   context: context,
                                   builder: (context) {
                                     return Container(
-                                        height: 400,
-                                        child: Column(children: [
-                                          ListTile(
-                                            title: Text("Camera"),
-                                            onTap: () {
-                                              _pickImage(
-                                                  source: ImageSource.camera);
-                                            },
+                                      padding: EdgeInsets.only(top: 30),
+                                     height: 150,
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                          children: [
+                                         SizedBox(
+                                          child: Column(
+                                            children: [
+                                              InkWell(
+                                                onTap: (){
+                                                   _pickImage(source: ImageSource.camera);
+                                                },
+                                                child: Icon(Icons.camera_alt,size: 50,)),
+                                              Text('Camera',style: GoogleFonts.robotoSlab(color: Colors.black),)
+                                            ]
                                           ),
-                                          ListTile(
-                                            title: Text("Gallery"),
-                                            onTap: () {
-                                              _pickImage(
-                                                  source: ImageSource.gallery);
-                                            },
-                                          )
+                                         ),
+                                          
+                                         SizedBox(
+                                          child: Column(
+                                            children: [
+                                              InkWell(
+                                                onTap: (){ _pickImage(source: ImageSource.gallery);},
+                                                child: Icon(Icons.image,size: 50,)),
+                                              Text('Gallery',style: GoogleFonts.robotoSlab(color: Colors.black),)
+                                            ]
+                                          ),
+                                         )
+                                         
                                         ]));
                                   });
                             },

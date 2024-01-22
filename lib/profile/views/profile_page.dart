@@ -29,6 +29,7 @@ class _ProfilePageState extends State<ProfilePage> {
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.black,
+        
         body: SingleChildScrollView(
           scrollDirection: Axis.vertical,
           child: BlocConsumer<ProfileCubit, ProfileState>(
