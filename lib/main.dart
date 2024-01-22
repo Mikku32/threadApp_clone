@@ -9,8 +9,7 @@ import 'package:form_app/home/cubit/home_cubit.dart';
 import 'package:form_app/profile/cubit/profile_cubit.dart';
 import 'package:form_app/upload/cubit/upload_cubit.dart';
 void main() {
-  runApp(DevicePreview(
-      builder: (context) =>  MainApp()));
+  runApp(MainApp());
 }
 
 class MainApp extends StatelessWidget {
@@ -37,8 +36,8 @@ class MainApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         home: SplashScreen(),
-        locale: DevicePreview.locale(context),
-        builder: DevicePreview.appBuilder,
+        // locale: DevicePreview.locale(context),
+        // builder: DevicePreview.appBuilder,
       )
     )
     ;
