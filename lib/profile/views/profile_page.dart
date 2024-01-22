@@ -2,9 +2,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:form_app/Common/views/navigation_bar.dart';
 import 'package:form_app/auth/cubit/auth_cubit.dart';
+import 'package:form_app/auth/views/login_page.dart';
 import 'package:form_app/profile/cubit/profile_cubit.dart';
-import 'package:form_app/profile/widgets/logout_button.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:like_button/like_button.dart';
 
@@ -23,13 +24,41 @@ class _ProfilePageState extends State<ProfilePage> {
    
     super.initState();
   }
+  
 
   @override
+  
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.black,
-        
+        appBar: AppBar(
+         
+          backgroundColor: Colors.black,
+          toolbarHeight: 30,
+          leading: IconButton(
+            onPressed: () {
+              Navigator.of(context).pushReplacement(MaterialPageRoute(
+                builder: (context) => NavigationTabs(),
+              )
+              );
+            },
+            icon: Icon(Icons.arrow_back_ios_new,
+            size: 20,
+            color: Colors.white,),
+          ),
+          actions: [
+           IconButton(
+        onPressed: () { context.read<AuthCubit>().logout();
+          Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => Login(),
+          ));},
+        icon: Icon(Icons.logout, color: Colors.white,))
+          ],
+        ),
+
+
+
         body: SingleChildScrollView(
           scrollDirection: Axis.vertical,
           child: BlocConsumer<ProfileCubit, ProfileState>(
@@ -38,7 +67,7 @@ class _ProfilePageState extends State<ProfilePage> {
               if (state is ProfileError) {
                 return Center(
                     child: Text(
-                  'fgvg',
+                  'Something Went Wrong :( ', 
                 ));
               }
               if (state is ProfileSuccess) {
