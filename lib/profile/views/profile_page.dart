@@ -126,7 +126,13 @@ class _ProfilePageState extends State<ProfilePage> {
                                     Text(thread.user.username, style: GoogleFonts.robotoSlab(fontWeight: FontWeight.bold,fontSize: 15,color: Colors.white),),
                                     Spacer(),
                                    
-                                    Text('${DateTime.now().difference(thread.createdAt).inDays.toString() }d',style:GoogleFonts.robotoSlab(fontWeight: FontWeight.w300,color: Colors.white,fontSize: 15) ,),
+                                   if(DateTime.now().difference(thread.createdAt).inDays>0)
+                                    Text("${DateTime.now().difference(thread.createdAt).inDays}d",style:GoogleFonts.robotoSlab(fontWeight: FontWeight.w300,color: Colors.white) ,)
+                                    else if(DateTime.now().difference(thread.createdAt).inHours>0)
+                                    Text("${DateTime.now().difference(thread.createdAt).inHours}h",style:GoogleFonts.robotoSlab(fontWeight: FontWeight.w300,color: Colors.white) ,)
+                                    else 
+                                    Text("${DateTime.now().difference(thread.createdAt).inMinutes}m",style:GoogleFonts.robotoSlab(fontWeight: FontWeight.w300,color: Colors.white) ,),
+                                    
                                     const SizedBox(width: 10),
                                     Icon(Icons.more_horiz, color: Colors.white),
                                   ]

@@ -35,7 +35,7 @@ class _NavigationTabsState extends State<NavigationTabs> {
         
         items: [
       BottomNavigationBarItem(
-        icon: FaIcon(FontAwesomeIcons.house),
+        icon: Image.asset('assets/home.png',height: 50,),
         label: ''
       ),
       BottomNavigationBarItem(

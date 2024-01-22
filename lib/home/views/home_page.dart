@@ -72,8 +72,16 @@ class _HomePageState extends State<HomePage> {
                                   children: [
                                     Text(thread.user.username, style: GoogleFonts.robotoSlab(fontSize: 18,color: Colors.white),),
                                     Spacer(),
-                                   
-                                    Text(DateTime.now().difference(thread.createdAt).inDays.toString() + "d",style:GoogleFonts.robotoSlab(fontWeight: FontWeight.w300,color: Colors.white) ,),
+
+                                  
+                                    if(DateTime.now().difference(thread.createdAt).inDays>0)
+                                    Text(DateTime.now().difference(thread.createdAt).inDays.toString() + "d",style:GoogleFonts.robotoSlab(fontWeight: FontWeight.w300,color: Colors.white) ,)
+                                    else if(DateTime.now().difference(thread.createdAt).inHours>0)
+                                    Text(DateTime.now().difference(thread.createdAt).inHours.toString() + "h",style:GoogleFonts.robotoSlab(fontWeight: FontWeight.w300,color: Colors.white) ,)
+                                    else 
+                                    Text(DateTime.now().difference(thread.createdAt).inMinutes.toString() + "m",style:GoogleFonts.robotoSlab(fontWeight: FontWeight.w300,color: Colors.white) ,),
+                                    
+                                 
                                     SizedBox(width: 10),
                                     Icon(Icons.more_horiz, color: Colors.white),
                                   ]
