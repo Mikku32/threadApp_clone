@@ -65,11 +65,12 @@ class _HomePageState extends State<HomePage> {
                              children: [
                               ListTile(
                                 leading: CircleAvatar(
+                                  radius: 20,
                                   backgroundImage: NetworkImage(thread.user.image)
                                 ),
                                 title: Row(
                                   children: [
-                                    Text(thread.user.username, style: GoogleFonts.robotoSlab(fontWeight: FontWeight.bold,fontSize: 20,color: Colors.white),),
+                                    Text(thread.user.username, style: GoogleFonts.robotoSlab(fontSize: 18,color: Colors.white),),
                                     Spacer(),
                                    
                                     Text(DateTime.now().difference(thread.createdAt).inDays.toString() + "d",style:GoogleFonts.robotoSlab(fontWeight: FontWeight.w300,color: Colors.white) ,),
@@ -78,8 +79,9 @@ class _HomePageState extends State<HomePage> {
                                   ]
                                 ),
                               ),
+                              SizedBox(height: 10),
                               Container(
-                                padding: EdgeInsets.only(left: 45),
+                                padding: EdgeInsets.only(left: 50),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [

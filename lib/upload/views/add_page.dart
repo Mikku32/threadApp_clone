@@ -52,7 +52,7 @@ class _UploadPageState extends State<UploadPage> {
                   listener: (context, state) {
                     if (state is UploadError) {
                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                        content: Text(state.message),
+                        content: Text("Really bro... Really?"),
                       ));
                     }
 
@@ -106,13 +106,8 @@ class _UploadPageState extends State<UploadPage> {
               ListTile(
                 leading: CircleAvatar(
                     backgroundImage: NetworkImage(
-                        (context.read<AuthCubit>().state as AuthSuccess)
-                            .user
-                            .image)),
-                title: Text(
-                  (context.read<AuthCubit>().state as AuthSuccess)
-                      .user
-                      .username,
+                        (context.read<AuthCubit>().state as AuthSuccess).user.image)),
+                title: Text('@${(context.read<AuthCubit>().state as AuthSuccess).user.username}',
                   style: GoogleFonts.robotoSlab(
                       fontWeight: FontWeight.bold,
                       fontSize: 15,
