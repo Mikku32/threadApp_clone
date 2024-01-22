@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:dio/dio.dart';
 import 'package:form_app/Common/utils/api_client.dart';
 import 'package:form_app/upload/models/create.dart';
 import 'package:meta/meta.dart';
@@ -14,8 +15,11 @@ class UploadCubit extends Cubit<UploadState> {
    try{
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final token = prefs.getString('token');
+    
     final user = await dioClient.post(
       '/threads/', //go to this page
+
+      options: Options( headers: { 'Authorization': 'Token $token'} ),
       data: {
         'content': content,
         

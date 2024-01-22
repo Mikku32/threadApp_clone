@@ -37,7 +37,7 @@ class UploadPage extends StatelessWidget {
                        SnackBar(
                          content: Text(state.message),
                        )
-                     );
+                     );}
 
                      if (state is UploadSuccess) {
                       context.read<HomeCubit>().getHomeData();
@@ -51,12 +51,12 @@ class UploadPage extends StatelessWidget {
                          builder: (context) => NavigationTabs(),
                        ));
                      }
-                   }
                   },
                   builder: (context, state) {
                     if (state is UploadLoading) {
                       return CircularProgressIndicator();}
-                     return ElevatedButton(
+                      else
+                    { return ElevatedButton(
                       style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.black),
                       onPressed: () {
@@ -81,6 +81,7 @@ class UploadPage extends StatelessWidget {
                       ]),
                     ); 
                     }
+                  },
                     
                   
                 ),
