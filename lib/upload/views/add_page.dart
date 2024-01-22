@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:form_app/Common/views/navigation_bar.dart';
+import 'package:form_app/home/cubit/home_cubit.dart';
 import 'package:form_app/upload/cubit/upload_cubit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -28,29 +29,60 @@ class UploadPage extends StatelessWidget {
             actions: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: ElevatedButton(
-                  style:
-                      ElevatedButton.styleFrom(backgroundColor: Colors.black),
-                  onPressed: () {
-                    final content = contentcontroller.text;
-                    final image = imagecontroller.text;
-                
-                    context.read<UploadCubit>().createThread(content, image);
+                child: BlocConsumer<UploadCubit, UploadState>(
+                  listener: (context, state) {
+                   if(state is UploadError)
+                   {
+                     ScaffoldMessenger.of(context).showSnackBar(
+                       SnackBar(
+                         content: Text(state.message),
+                       )
+                     );
+
+                     if (state is UploadSuccess) {
+                      context.read<HomeCubit>().getHomeData();
+                      contentcontroller.clear();
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text("Thread created successfully"),
+                        )
+                      );
+                       Navigator.of(context).pushReplacement(MaterialPageRoute(
+                         builder: (context) => NavigationTabs(),
+                       ));
+                     }
+                   }
                   },
-                  child: Row(children: [
-                    Image.asset(
-                      'assets/add_square.png',
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Text(
-                      'Add',
-                      style: GoogleFonts.robotoSlab(
-                        color: Colors.white,
-                      ),
-                    ),
-                  ]),
+                  builder: (context, state) {
+                    if (state is UploadLoading) {
+                      return CircularProgressIndicator();}
+                     return ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.black),
+                      onPressed: () {
+                        final content = contentcontroller.text;
+                        context.read<UploadCubit>().createThread(content);
+
+
+                      },
+                      child: Row(children: [
+                        Image.asset(
+                          'assets/add_square.png',
+                        ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Text(
+                          'Add',
+                          style: GoogleFonts.robotoSlab(
+                            color: Colors.white,
+                          ),
+                        ),
+                      ]),
+                    ); 
+                    }
+                    
+                  
                 ),
               )
             ]),
