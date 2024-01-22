@@ -1,15 +1,34 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:form_app/Common/views/navigation_bar.dart';
 import 'package:form_app/home/cubit/home_cubit.dart';
 import 'package:form_app/upload/cubit/upload_cubit.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:image_picker/image_picker.dart';
 
-class UploadPage extends StatelessWidget {
+class UploadPage extends StatefulWidget {
   UploadPage({super.key});
 
-  final contentcontroller = TextEditingController();
-  final imagecontroller = TextEditingController();
+  @override
+  State<UploadPage> createState() => _UploadPageState();
+}
+
+class _UploadPageState extends State<UploadPage> {
+  final _contentcontroller = TextEditingController();
+  final _imagePicker = ImagePicker();
+  XFile? _image;
+
+
+
+  void _pickImage({ImageSource source= ImageSource.gallery}) async {
+     _image = await _imagePicker.pickImage(  
+      source: source,
+    );
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -41,7 +60,7 @@ class UploadPage extends StatelessWidget {
 
                      if (state is UploadSuccess) {
                       context.read<HomeCubit>().getHomeData();
-                      contentcontroller.clear();
+                      _contentcontroller.clear();
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
                           content: Text("Thread created successfully"),
@@ -60,8 +79,8 @@ class UploadPage extends StatelessWidget {
                       style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.black),
                       onPressed: () {
-                        final content = contentcontroller.text;
-                        context.read<UploadCubit>().createThread(content);
+                        final content = _contentcontroller.text;
+                        context.read<UploadCubit>().createThread(content, _image);
 
 
                       },
@@ -91,7 +110,7 @@ class UploadPage extends StatelessWidget {
             scrollDirection: Axis.vertical,
             child: Column(children: [
               TextField(
-                  controller: contentcontroller,
+                  controller: _contentcontroller,
                   style: GoogleFonts.robotoSerif(color: Colors.white),
                   decoration: InputDecoration(
                       border: InputBorder.none,
@@ -99,15 +118,34 @@ class UploadPage extends StatelessWidget {
                       hintStyle: GoogleFonts.robotoSerif(
                         color: Color.fromARGB(255, 192, 186, 186),
                       ))),
-              TextField(
-                  controller: imagecontroller,
-                  style: GoogleFonts.robotoSerif(color: Colors.white),
-                  decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: "Image URL",
-                      hintStyle: GoogleFonts.robotoSerif(
-                        color: Color.fromARGB(255, 192, 186, 186),
-                      )))
+              SizedBox(
+                height: 20,
+              ),
+
+               if(_image!=null)
+            Image.file(File(_image!.path),height: 200,width: 200,),
+              IconButton(onPressed: (){
+                showBottomSheet(context: context, builder: (context){
+                  return Container(
+                    child: Column(
+                      children: [
+                        ListTile(
+                        title: Text("Camera"),
+                        onTap: (){
+                          _pickImage(source: ImageSource.camera);
+                        },
+                      ),
+                      ListTile(
+                        title: Text("Galler"),
+                        onTap: (){
+                          _pickImage(source: ImageSource.gallery);
+                        },
+                      )
+                      ]
+                    )
+                  );
+                });
+              }, icon:Icon(Icons.attach_file))
             ])),
       ),
     );

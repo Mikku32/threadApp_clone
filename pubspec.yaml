@@ -14,6 +14,7 @@ dependencies:
   flutter_bloc: ^8.1.3
   font_awesome_flutter: ^10.6.0
   google_fonts: ^6.1.0
+  image_picker: ^1.0.7
   like_button: ^2.0.5
   shared_preferences: ^2.2.2
 
