@@ -21,8 +21,7 @@ class Login extends StatelessWidget {
                 Stack(
                   children: [
                     Container(
-                      width: MediaQuery.of(context).size.width,
-                      height: MediaQuery.of(context).size.height,
+
                       child: Column(children: [
                         InkWell(
                           onTap: () {},
