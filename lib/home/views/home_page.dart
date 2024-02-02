@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:form_app/Delete/cubit/delete_cubit.dart';
 import 'package:form_app/auth/cubit/auth_cubit.dart';
 import 'package:form_app/home/cubit/home_cubit.dart';
 import 'package:form_app/update/cubit/update_cubit.dart';
@@ -167,26 +168,66 @@ class _HomePageState extends State<HomePage> {
                                                                 ]),
                                                           ),
                                                           SizedBox(
-                                                            child: Column(
-                                                                children: [
-                                                                  InkWell(
-                                                                      onTap:
-                                                                          () {},
-                                                                      child:
-                                                                          Icon(
-                                                                        Icons
-                                                                            .delete,
-                                                                        size:
-                                                                            50,
-                                                                      )),
-                                                                  Text(
-                                                                    'Delete',
-                                                                    style: GoogleFonts
-                                                                        .robotoSlab(
+                                                            child: BlocConsumer<
+                                                                DeleteCubit,
+                                                                DeleteState>(
+                                                              listener:
+                                                                  (context,
+                                                                      state) {
+                                                                if (state
+                                                                    is DeleteError) {
+                                                                  ScaffoldMessenger.of(
+                                                                          context)
+                                                                      .showSnackBar(
+                                                                          SnackBar(
+                                                                    content: Text(
+                                                                        "Something went wrong"),
+                                                                  ));
+                                                                }
+                                                                if (state
+                                                                    is DeleteSuccess) {
+                                                                  context
+                                                                      .read<
+                                                                          HomeCubit>()
+                                                                      .getHomeData();
+                                                                  ScaffoldMessenger.of(
+                                                                          context)
+                                                                      .showSnackBar(
+                                                                          SnackBar(
+                                                                    content: Text(
+                                                                        "Thread deleted successfully"),
+                                                                  ));
+                                                                }
+                                                              },
+                                                              builder: (context,
+                                                                  state) {
+                                                                if (state
+                                                                    is DeleteLoading) {
+                                                                  return CircularProgressIndicator();
+                                                                }
+                                                                return Column(
+                                                                    children: [
+                                                                      InkWell(
+                                                                          onTap:
+                                                                              () async {
+                                                                            context.read<DeleteCubit>().deleteThread(thread.id);
+                                                                            Navigator.of(context).pop();
+                                                                          },
+                                                                          child:
+                                                                              Icon(
+                                                                            Icons.delete,
+                                                                            size:
+                                                                                50,
+                                                                          )),
+                                                                      Text(
+                                                                        'Delete',
+                                                                        style: GoogleFonts.robotoSlab(
                                                                             color:
                                                                                 Colors.black),
-                                                                  )
-                                                                ]),
+                                                                      )
+                                                                    ]);
+                                                              },
+                                                            ),
                                                           )
                                                         ]));
                                               });

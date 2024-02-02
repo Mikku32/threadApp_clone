@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:form_app/Common/views/navigation_bar.dart';
 import 'package:form_app/Common/views/splash_screen.dart';
+import 'package:form_app/Delete/cubit/delete_cubit.dart';
 import 'package:form_app/auth/cubit/auth_cubit.dart';
 import 'package:form_app/auth/views/login_page.dart';
 import 'package:device_preview/device_preview.dart';
@@ -34,6 +35,7 @@ class MainApp extends StatelessWidget {
             create: (context) => UploadCubit(),
           ),
           BlocProvider(create: (context) => UpdateCubit()),
+          BlocProvider(create: (context) => DeleteCubit()),
         ],
         child: MaterialApp(
           debugShowCheckedModeBanner: false,

@@ -46,7 +46,7 @@ class _EditThreadState extends State<EditThread> {
                 listener: (context, state) {
                   if (state is UpdateError) {
                     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                      content: Text("Really bro... Really?"),
+                      content: Text("Something went wrong"),
                     ));
                   }
 
