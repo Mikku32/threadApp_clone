@@ -5,7 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:form_app/Common/views/navigation_bar.dart';
 import 'package:form_app/auth/cubit/auth_cubit.dart';
 import 'package:form_app/home/cubit/home_cubit.dart';
-import 'package:form_app/profile/cubit/profile_cubit.dart';
 import 'package:form_app/upload/cubit/upload_cubit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
@@ -106,15 +105,18 @@ class _UploadPageState extends State<UploadPage> {
               ListTile(
                 leading: CircleAvatar(
                     backgroundImage: NetworkImage(
-                        (context.read<AuthCubit>().state as AuthSuccess).user.image)),
-                title: Text('@${(context.read<AuthCubit>().state as AuthSuccess).user.username}',
+                        (context.read<AuthCubit>().state as AuthSuccess)
+                            .user
+                            .image)),
+                title: Text(
+                  '@${(context.read<AuthCubit>().state as AuthSuccess).user.username}',
                   style: GoogleFonts.robotoSlab(
                       fontWeight: FontWeight.bold,
                       fontSize: 15,
                       color: Colors.white),
                 ),
                 subtitle: Text(
-                  '${DateTime.now().day}-0${DateTime.now().month}-${DateTime.now().year}',
+                  '0${DateTime.now().day}-0${DateTime.now().month}-${DateTime.now().year}',
                   style: GoogleFonts.robotoSlab(
                       fontWeight: FontWeight.w300,
                       fontSize: 12,
@@ -148,45 +150,63 @@ class _UploadPageState extends State<UploadPage> {
                         IconButton(
                             onPressed: () {
                               showModalBottomSheet(
-                                backgroundColor: Color.fromARGB(255, 122, 122, 122),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(30),
-                                  
+                                  backgroundColor:
+                                      Color.fromARGB(255, 122, 122, 122),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(30),
                                   ),
-
                                   context: context,
                                   builder: (context) {
                                     return Container(
-                                      padding: EdgeInsets.only(top: 30),
-                                     height: 150,
+                                        padding: EdgeInsets.only(top: 30),
+                                        height: 150,
                                         child: Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                          children: [
-                                         SizedBox(
-                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceEvenly,
                                             children: [
-                                              InkWell(
-                                                onTap: (){
-                                                   _pickImage(source: ImageSource.camera);
-                                                },
-                                                child: Icon(Icons.camera_alt,size: 50,)),
-                                              Text('Camera',style: GoogleFonts.robotoSlab(color: Colors.black),)
-                                            ]
-                                          ),
-                                         ),
-                                          
-                                         SizedBox(
-                                          child: Column(
-                                            children: [
-                                              InkWell(
-                                                onTap: (){ _pickImage(source: ImageSource.gallery);},
-                                                child: Icon(Icons.image,size: 50,)),
-                                              Text('Gallery',style: GoogleFonts.robotoSlab(color: Colors.black),)
-                                            ]
-                                          ),
-                                         )
-                                         
-                                        ]));
+                                              SizedBox(
+                                                child: Column(children: [
+                                                  InkWell(
+                                                      onTap: () {
+                                                        _pickImage(
+                                                            source: ImageSource
+                                                                .camera);
+                                                      },
+                                                      child: Icon(
+                                                        Icons.camera_alt,
+                                                        size: 50,
+                                                      )),
+                                                  Text(
+                                                    'Camera',
+                                                    style:
+                                                        GoogleFonts.robotoSlab(
+                                                            color:
+                                                                Colors.black),
+                                                  )
+                                                ]),
+                                              ),
+                                              SizedBox(
+                                                child: Column(children: [
+                                                  InkWell(
+                                                      onTap: () {
+                                                        _pickImage(
+                                                            source: ImageSource
+                                                                .gallery);
+                                                      },
+                                                      child: Icon(
+                                                        Icons.image,
+                                                        size: 50,
+                                                      )),
+                                                  Text(
+                                                    'Gallery',
+                                                    style:
+                                                        GoogleFonts.robotoSlab(
+                                                            color:
+                                                                Colors.black),
+                                                  )
+                                                ]),
+                                              )
+                                            ]));
                                   });
                             },
                             icon: Image.asset('assets/attachFile.png')),
