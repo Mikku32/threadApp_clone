@@ -4,6 +4,7 @@ import 'package:form_app/Common/utils/api_client.dart';
 import 'package:form_app/home/models/thread.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:meta/meta.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 part 'update_state.dart';
 
@@ -17,8 +18,11 @@ class UpdateCubit extends Cubit<UpdateState> {
     emit(UpdateLoading());
 
     try {
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      final token = prefs.getString('token');
       final threads = await dioClient.patch(
         '/threads/$id/',
+        options: Options(headers: {'Authorization': 'Token $token'}),
         data: {
           'content': content,
         },

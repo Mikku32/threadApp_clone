@@ -6,7 +6,7 @@ import 'package:form_app/auth/views/login_page.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:form_app/home/cubit/home_cubit.dart';
-import 'package:form_app/home/cubit/update_cubit.dart';
+import 'package:form_app/update/cubit/update_cubit.dart';
 import 'package:form_app/profile/cubit/profile_cubit.dart';
 import 'package:form_app/upload/cubit/upload_cubit.dart';
 

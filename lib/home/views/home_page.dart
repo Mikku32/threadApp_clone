@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:form_app/auth/cubit/auth_cubit.dart';
 import 'package:form_app/home/cubit/home_cubit.dart';
+import 'package:form_app/update/cubit/update_cubit.dart';
+import 'package:form_app/update/views/edit_page.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:like_button/like_button.dart';
 
@@ -108,7 +110,91 @@ class _HomePageState extends State<HomePage> {
                                           color: Colors.white),
                                     ),
                                   SizedBox(width: 10),
-                                  Icon(Icons.more_horiz, color: Colors.white),
+                                  if (thread.user.id ==
+                                      (context.read<AuthCubit>().state
+                                              as AuthSuccess)
+                                          .user
+                                          .id)
+                                    IconButton(
+                                        onPressed: () {
+                                          showModalBottomSheet(
+                                              backgroundColor: Color.fromARGB(
+                                                  255, 122, 122, 122),
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(30),
+                                              ),
+                                              context: context,
+                                              builder: (context) {
+                                                return Container(
+                                                    padding: EdgeInsets.only(
+                                                        top: 30),
+                                                    height: 150,
+                                                    child: Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceEvenly,
+                                                        children: [
+                                                          SizedBox(
+                                                            child: Column(
+                                                                children: [
+                                                                  InkWell(
+                                                                      onTap:
+                                                                          () {
+                                                                        Navigator.of(context)
+                                                                            .push(
+                                                                          MaterialPageRoute(
+                                                                              builder: (context) => EditThread(
+                                                                                    content: thread.content,
+                                                                                    id: thread.id,
+                                                                                  )),
+                                                                        );
+                                                                      },
+                                                                      child:
+                                                                          Icon(
+                                                                        Icons
+                                                                            .edit,
+                                                                        size:
+                                                                            50,
+                                                                      )),
+                                                                  Text(
+                                                                    'Edit',
+                                                                    style: GoogleFonts
+                                                                        .robotoSlab(
+                                                                            color:
+                                                                                Colors.black),
+                                                                  )
+                                                                ]),
+                                                          ),
+                                                          SizedBox(
+                                                            child: Column(
+                                                                children: [
+                                                                  InkWell(
+                                                                      onTap:
+                                                                          () {},
+                                                                      child:
+                                                                          Icon(
+                                                                        Icons
+                                                                            .delete,
+                                                                        size:
+                                                                            50,
+                                                                      )),
+                                                                  Text(
+                                                                    'Delete',
+                                                                    style: GoogleFonts
+                                                                        .robotoSlab(
+                                                                            color:
+                                                                                Colors.black),
+                                                                  )
+                                                                ]),
+                                                          )
+                                                        ]));
+                                              });
+                                        },
+                                        icon: Icon(
+                                          Icons.more_horiz_outlined,
+                                          color: Colors.white,
+                                        ))
                                 ]),
                               ),
                               SizedBox(height: 10),
