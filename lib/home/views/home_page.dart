@@ -25,6 +25,7 @@ class _HomePageState extends State<HomePage> {
     super.initState();
   }
 
+  @override
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
@@ -76,11 +77,7 @@ class _HomePageState extends State<HomePage> {
                                           .inDays >
                                       0)
                                     Text(
-                                      DateTime.now()
-                                              .difference(thread.createdAt)
-                                              .inDays
-                                              .toString() +
-                                          "d",
+                                      "${DateTime.now().difference(thread.createdAt).inDays}d",
                                       style: GoogleFonts.robotoSlab(
                                           fontWeight: FontWeight.w300,
                                           color: Colors.white),
@@ -90,22 +87,24 @@ class _HomePageState extends State<HomePage> {
                                           .inHours >
                                       0)
                                     Text(
-                                      DateTime.now()
-                                              .difference(thread.createdAt)
-                                              .inHours
-                                              .toString() +
-                                          "h",
+                                      "${DateTime.now().difference(thread.createdAt).inHours}h",
+                                      style: GoogleFonts.robotoSlab(
+                                          fontWeight: FontWeight.w300,
+                                          color: Colors.white),
+                                    )
+                                  else if (DateTime.now()
+                                          .difference(thread.createdAt)
+                                          .inMinutes >
+                                      0)
+                                    Text(
+                                      "${DateTime.now().difference(thread.createdAt).inMinutes}m",
                                       style: GoogleFonts.robotoSlab(
                                           fontWeight: FontWeight.w300,
                                           color: Colors.white),
                                     )
                                   else
                                     Text(
-                                      DateTime.now()
-                                              .difference(thread.createdAt)
-                                              .inMinutes
-                                              .toString() +
-                                          "m",
+                                      "${DateTime.now().difference(thread.createdAt).inSeconds}s",
                                       style: GoogleFonts.robotoSlab(
                                           fontWeight: FontWeight.w300,
                                           color: Colors.white),
@@ -253,7 +252,7 @@ class _HomePageState extends State<HomePage> {
                                     if (thread.image != null)
                                       ClipRRect(
                                         borderRadius: BorderRadius.circular(15),
-                                        child: Container(
+                                        child: SizedBox(
                                             width: 350,
                                             child: Image.network(
                                               thread.image.toString(),
@@ -277,7 +276,7 @@ class _HomePageState extends State<HomePage> {
                                     ]),
                                     SizedBox(height: 10),
                                     Text(
-                                      thread.likesCount.toString() + " likes",
+                                      "${thread.likesCount} likes",
                                       style: GoogleFonts.robotoSlab(
                                           color: Colors.white),
                                     )
